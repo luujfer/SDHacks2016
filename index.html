@@ -233,6 +233,7 @@
           pin.setPosition(place.geometry.location);
 	  pin.setVisible(true);
 	  marker.setVisible(false);
+	  infowindow.setVisible(false);
 	  firebase.push({placeID: place.geometry.location, objId: 0});
       });
 	  firebase.on("child_added", function(snapshot, prevChildKey) { //listener when something is pushed to firebase
