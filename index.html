@@ -229,6 +229,10 @@
           e.preventDefault(); //prevent refresh
 	  firebase.push({'name': place.name, 'pID' : place.placeId});
       });
+	  firebase.on("child_added", function(snapshot, prevChildKey) { //listener when something is pushed to firebase
+	var newPosition = snapshot.val();
+	var key = snapshot.key();
+	});
 
         });
 
