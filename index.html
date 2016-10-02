@@ -234,7 +234,7 @@
 	  pin.setVisible(true);
 	  marker.setVisible(false);
 	  var latlong = place.geometry.location;
-	  firebase.push({placeID: latlong, objId: 0});
+	  firebase.push({placeN: place.name, objId: 0});
       });
 	  firebase.on("child_added", function(snapshot, prevChildKey) { //listener when something is pushed to firebase
 	var newPosition = snapshot.val();
