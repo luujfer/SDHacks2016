@@ -233,17 +233,17 @@
 
 	  $("#bkt-btn").click(function(e){
           e.preventDefault(); //prevent refresh
-        //  pin.setPosition(place.geometry.location);
-	 // pin.setVisible(true);
-	 // marker.setVisible(false);
+          pin.setPosition(place.geometry.location);
+	  pin.setVisible(true);
+	  marker.setVisible(false);
 	  firebase.push({latLng: place.geometry.location, objId: 0});
       });
 	  firebase.on("child_added", function(snapshot, prevChildKey) { //listener when something is pushed to firebase
 	var newPosition = snapshot.val();
 	var key = snapshot.key();
-	 pin.setPosition(place.geometry.location);
-	  pin.setVisible(true);
-	  marker.setVisible(false);
+//	 pin.setPosition(place.geometry.location);
+//	  pin.setVisible(true);
+//	  marker.setVisible(false);
 	  firebase.child(key).update({objId: placeId});
 
 	});
