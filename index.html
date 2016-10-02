@@ -66,7 +66,7 @@
       }
       #bkt-btn {
 	  display: inline-block;
-	  font-family: 'Georgia';
+	  font-family: Roboto;
 	  padding: 15px 25px;
 	  font-size: 24px;
 	  cursor: pointer;
@@ -87,11 +87,17 @@
 	  box-shadow: 0 5px #666;
 	  transform: translateY(4px);
       }
+      #bucketBtn{
+          
+      }
 </style>
   </head>
   <body>
     <img src="title.png" height="20%" align="middle">
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="bucketBtn">
+        <button class="button" id="bkt-btn">Bucket It</button>
+    </div>
     <div id="map"></div>
 
     <script>
@@ -190,7 +196,9 @@
 
       }
 
-      
+      $("#bkt-btn").click(function(e){
+      });
+
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
