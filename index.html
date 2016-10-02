@@ -184,7 +184,11 @@
           map: map,
           anchorPoint: new google.maps.Point(0, -29)
         });
-
+        var pin = new google.maps.Marker({
+	  map: map,
+	  anchorPoint: new google.maps.Point(0,-29)
+	});
+	
         autocomplete.addListener('place_changed', function() {
           infowindow.close();
           marker.setVisible(false);
@@ -208,6 +212,12 @@
             anchor: new google.maps.Point(17, 34),
             scaledSize: new google.maps.Size(35, 35)
           }));
+	  pin.setIcon(({
+	    url: 'pin.png',
+	    size: new google.maps.Size(64,64),
+	    origin: new google.maps.Point(0,0),
+	    anchor: new google.maps.Point(32,64),
+	  }));
           marker.setPosition(place.geometry.location);
           marker.setVisible(true);
 
@@ -244,7 +254,6 @@
         setupClickListener('changetype-establishment', ['establishment']);
         setupClickListener('changetype-geocode', ['geocode']);
       }
-
 
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
