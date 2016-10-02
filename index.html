@@ -100,7 +100,7 @@
   </head>
   <body>
     <img src="title.png" height="20%" align="middle" display="inline">
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
     <div id="bucketBtn">
         <button class="button" id="bkt-btn">Bucket It</button>
     </div>
@@ -161,70 +161,81 @@
 
 	        // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        
+        autocomplete.bindTo('bounds', map);
+        
 
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
+        var marker = new google.maps.Marker({
+		map: map,
+		anchorPoint: new google.maps.Point(0, -29)
+	});
+	// more details for that place.
+        autocomplete.addListener('place_changed', function() {
+	  marker.setVisible(false);
+          var place = autocomplete.getPlace();
 
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
+          if (!places.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+	    return;
           }
 
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
+           if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              map.fitBounds(place.geometry.viewport);
+            } else {
+              map.setCenter(place.geometry.location);
+	      map.setZoom(17);
             }
-            var icon = {
+          });
+          
+            marker.setIcon(google.maps.Icon({
               url: place.icon,
               size: new google.maps.Size(71, 71),
               origin: new google.maps.Point(0, 0),
               anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
+              scaledSize: new google.maps.Size(35, 35)
             }));
 
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
+              marker.setPosition(place.geometry.location);
+	      marker.setVisible(true);
+
+	      var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
+
+          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+          infowindow.open(map, marker);
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        function setupClickListener(id, types) {
+          var radioButton = document.getElementById(id);
+          radioButton.addEventListener('click', function() {
+            autocomplete.setTypes(types);
           });
-          map.fitBounds(bounds);
+        }
+
+        setupClickListener('changetype-all', []);
+        setupClickListener('changetype-address', ['address']);
+        setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);
+      }
+      $("#bkt-btn").click(function(e){
+          e.preventDefault(); //prevent refresh
+	  firebase.push({name: place.name, pID: place.placeId});
+      });
+
         });
 
 
       }
-
-      $("#bkt-btn").click(function(e){
-          e.preventDefault(); //prevent refresh
-
-      });
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
