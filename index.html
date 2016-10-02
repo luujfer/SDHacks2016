@@ -62,13 +62,35 @@
       #target {
         width: 345px;
       }
-    </style>
+      #bkt-btn {
+	  display: inline-block;
+	  font-family: 'Georgia';
+	  padding: 15px 25px;
+	  font-size: 24px;
+	  cursor: pointer;
+	  text-align: center;
+	  text-decoration: none;
+	  outline: none;
+	  color: #fff;
+	  background-color: #6699ff;
+	  border: none;
+	  border-radius: 15px;
+	  box-shadow: 0 9px #999;
+      }
+
+      #bkt-btn:hover {background-color: #00004d}
+
+      #bkt-btn:active {
+	  background-color: #00004d;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+      }
+</style>
   </head>
   <body>
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map"></div>
 
-//    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvcFg4tU8EwXafJlw1HxUy7i9PkO6lf7I&libra//ries=places&callback=initMap"></script>
     <script>
 
       function initMap() {
