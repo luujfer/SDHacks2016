@@ -139,8 +139,7 @@
         });
 
 	var firebase = new Firebase("https://sdhacks2016-145116.firebaseio.com");
-        firebase.remove();
-	  
+ 	  
 	//HTML5 geolocation
 	if (navigator.geolocation) {
 	  navigator.geolocation.getCurrentPosition(function(position) {
@@ -156,7 +155,7 @@
 	      icon: currentlocimage
 	    });
 
-	    var infowindow;
+	    var infoWindow = new google.maps.InfoWindow();
 	    //infoWindow.setPosition(pos);
 	    //infoWindow.setContent('Current Location');
 	    map.setCenter(pos);
@@ -239,7 +238,7 @@
 
     $("#bkt-btn").click(function(e){
           e.preventDefault(); //prevent refresh
-	  firebase.push({name: place.name, pID: place.placeId});
+	  firebase.push({'name': place.name, 'pID' : place.placeId});
       });
 
 
