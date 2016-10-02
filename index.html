@@ -131,7 +131,6 @@
 <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
        <script>
-
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
@@ -156,8 +155,8 @@
 	    });
 
 	    var infoWindow = new google.maps.InfoWindow();
-	    //infoWindow.setPosition(pos);
-	    //infoWindow.setContent('Current Location');
+
+	    infoWindow.setContent('Current Location');
 	    map.setCenter(pos);
 	  }, function() {
 	    handleLocationError(true, infoWindow, map.getCenter());
@@ -219,6 +218,12 @@
 
           infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
           infowindow.open(map, marker);
+
+	  $("#bkt-btn").click(function(e){
+          e.preventDefault(); //prevent refresh
+	  firebase.push({'name': place.name, 'pID' : place.placeId});
+      });
+
         });
 
         // Sets a listener on a radio button to change the filter type on Places
@@ -235,12 +240,6 @@
         setupClickListener('changetype-establishment', ['establishment']);
         setupClickListener('changetype-geocode', ['geocode']);
       }
-
-    $("#bkt-btn").click(function(e){
-          e.preventDefault(); //prevent refresh
-	  firebase.push({'name': place.name, 'pID' : place.placeId});
-      });
-
 
 
 
