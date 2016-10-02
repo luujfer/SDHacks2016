@@ -234,7 +234,7 @@
 	  pin.setVisible(true);
 	  marker.setVisible(false);
 	  infowindow.close();
-	  firebase.push({placeID: place.geometry.location, objId: 0});
+	  firebase.push({placeID: place.name, objId: 0});
 
 	  var latlong = place.geometry.location;
 	  firebase.push({placeN: place.name, objId: 0});
