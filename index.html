@@ -227,6 +227,9 @@
 
 	  $("#bkt-btn").click(function(e){
           e.preventDefault(); //prevent refresh
+          pin.setPosition(place.geometry.location);
+	  pin.setVisible(true);
+	  marker.setVisible(false);
 	  firebase.push({'name': place.name, 'pID' : place.placeId});
       });
 	  firebase.on("child_added", function(snapshot, prevChildKey) { //listener when something is pushed to firebase
