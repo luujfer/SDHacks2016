@@ -37,16 +37,7 @@
 	text-overflow: ellipsis;
 	width: 300px;
       }
-      #pac-input {
-        background-color:#fff;
-	font-family: Roboto;
-	font-size: 15px;
-	font-weight: 300;
-	margin-left: 12px;
-	padding: 0 11px 0 13px;
-	text-overflow: ellipsis;
-	width: 300px;
-      }
+
       #pac-input:focus {
         border-color: #4d90fe;
       }
@@ -100,7 +91,22 @@
   </head>
   <body>
     <img src="title.png" height="20%" align="middle" display="inline">
-    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+    <input id="pac-input" class="controls" type="text"
+        placeholder="Enter a location">
+    <div id="type-selector" class="controls">
+      <input type="radio" name="type" id="changetype-all" checked="checked">
+      <label for="changetype-all">All</label>
+
+      <input type="radio" name="type" id="changetype-establishment">
+      <label for="changetype-establishment">Establishments</label>
+
+      <input type="radio" name="type" id="changetype-address">
+      <label for="changetype-address">Addresses</label>
+
+      <input type="radio" name="type" id="changetype-geocode">
+      <label for="changetype-geocode">Geocodes</label>
+    </div>
+
     <div id="bucketBtn">
         <button class="button" id="bkt-btn">Bucket It</button>
     </div>
