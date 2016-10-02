@@ -227,6 +227,8 @@
 
           infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
           infowindow.open(map, marker);
+	  	  var latlong = place.geometry.location;
+
 
 	  $("#bkt-btn").click(function(e){
           e.preventDefault(); //prevent refresh
@@ -234,9 +236,6 @@
 	  pin.setVisible(true);
 	  marker.setVisible(false);
 	  infowindow.close();
-	  firebase.push({placeID: place.name, objId: 0});
-
-	  var latlong = place.geometry.location;
 	  firebase.push({placeN: place.name, objId: 0});
       });
 	  firebase.on("child_added", function(snapshot, prevChildKey) { //listener when something is pushed to firebase
