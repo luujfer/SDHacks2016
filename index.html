@@ -238,7 +238,7 @@
 	  marker.setVisible(false);
 	  infowindow.close();
 	  pin.setMap(map);
-	  firebase.push({placeN: place.name, objId: 0});
+	  firebase.push({placeN: place.name, objId: place.placeId});
       });
 	  firebase.on("child_added", function(snapshot, prevChildKey) { //listener when something is pushed to firebase
 	var newPosition = snapshot.val();
