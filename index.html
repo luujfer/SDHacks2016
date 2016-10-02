@@ -128,8 +128,9 @@
     };
     firebase.initializeApp(config);
 </script>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+       <script>
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -137,8 +138,8 @@
           zoom: 12
         });
 
-//	var firebase = new Firebase("https://sdhacks2016-145116.firebaseio.com/");
-  //      firebase.remove();
+	var firebase = new Firebase("https://sdhacks2016-145116.firebaseio.com");
+        firebase.remove();
 	  
 	//HTML5 geolocation
 	if (navigator.geolocation) {
@@ -155,6 +156,7 @@
 	      icon: currentlocimage
 	    });
 
+	    var infowindow;
 	    //infoWindow.setPosition(pos);
 	    //infoWindow.setContent('Current Location');
 	    map.setCenter(pos);
