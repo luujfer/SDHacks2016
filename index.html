@@ -201,6 +201,8 @@
       }
 
       $("#bkt-btn").click(function(e){
+          e.preventDefault(); //prevent refresh
+
       });
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
